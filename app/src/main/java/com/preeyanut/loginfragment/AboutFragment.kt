@@ -1,0 +1,69 @@
+package com.preeyanut.loginfragment
+
+import android.content.Context
+import android.net.Uri
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+
+class AboutFragment : Fragment() {
+    private var username : String? = null
+    private var password : String? = null
+    private var listener: OnFragmentInteractionListener? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val bundle = arguments
+        if (bundle != null){
+            username = bundle.getString("username").toString()
+            password = bundle.getString("password").toString()
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view: View = inflater.inflate(R.layout.fragment_about, container, false)
+        val txtUsername: TextView = view.findViewById(R.id.txtUsername)
+        txtUsername.setText(username)
+
+        return view
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    fun onButtonPressed(uri: Uri) {
+        listener?.onFragmentInteraction(uri)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+
+    interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        fun onFragmentInteraction(uri: Uri)
+    }
+
+    fun newInstance(username: String,password:String): AboutFragment {
+
+        val aboutFragment = AboutFragment()
+        val bundle = Bundle()
+        bundle.putString("username",username)
+        bundle.putString("password",password)
+        aboutFragment.setArguments(bundle)
+
+        return aboutFragment
+    }
+}
